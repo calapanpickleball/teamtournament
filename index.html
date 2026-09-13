@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2nd Team Tournament, Calapan City Pickleball Club</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0c0f;
+  --panel:#16181d;
+  --panel-2:#1d2028;
+  --lime:#c8ff3d;
+  --purple:#8b5cf6;
+  --orange:#ff7a29;
+  --cream:#f4f4ef;
+  --ink:#0b0c0f;
+  --muted:#9aa0a6;
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--cream);
+  overflow-x:hidden;
+}
+
+img{max-width:100%}
+button,input{font-family:'Poppins',sans-serif}
+
+.display{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.wrap{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:0 18px;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+  padding:40px 18px 48px;
+  border-bottom:4px solid var(--lime);
+  text-align:center;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-120px;left:50%;
+  transform:translateX(-50%);
+  width:520px;height:520px;
+  background:radial-gradient(circle,rgba(200,255,61,.16),transparent 70%);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  bottom:-140px;right:-60px;
+  width:340px;height:340px;
+  background:radial-gradient(circle,rgba(139,92,246,.22),transparent 70%);
+}
+.club-line{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;
+  font-weight:700;font-size:12.5px;letter-spacing:1.5px;
+  color:var(--orange);
+  margin-bottom:8px;
+}
+.club-line .dot{width:5px;height:5px;background:var(--orange);border-radius:50%}
+.hero h1{
+  position:relative;z-index:2;
+  font-size:clamp(46px,11vw,92px);
+  line-height:.86;
+  margin:8px auto 6px;
+  max-width:760px;
+  color:var(--lime);
+  text-shadow:0 0 30px rgba(200,255,61,.25);
+}
+.hero .sub{
+  position:relative;z-index:2;
+  font-weight:600;font-size:16px;
+  color:var(--muted);
+  max-width:480px;margin:14px auto 0;
+}
+.chips{
+  position:relative;z-index:2;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px;
+}
+.chip{
+  background:var(--panel);
+  border:1px solid rgba(200,255,61,.35);
+  color:var(--cream);
+  font-weight:600;font-size:13.5px;
+  padding:9px 16px;border-radius:30px;
+}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:42px 0}
+.kicker{
+  display:inline-block;
+  font-weight:700;font-size:12.5px;letter-spacing:.5px;
+  color:var(--ink);
+  background:var(--lime);
+  padding:5px 13px;border-radius:20px;
+  margin-bottom:10px;
+}
+.kicker.purple{background:var(--purple);color:#fff}
+.kicker.orange{background:var(--orange);color:#1a0f00}
+h2.title{font-size:clamp(27px,5vw,38px);margin:0 0 6px;line-height:1.05;color:#fff}
+.lede{font-size:15.5px;line-height:1.65;max-width:640px;color:#c7cbd1}
+
+/* ---------- STAT CHIPS ---------- */
+.stat-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:22px;
+}
+@media(max-width:640px){.stat-row{grid-template-columns:1fr}}
+.stat-card{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
+}
+.stat-card .big{
+  font-family:'Anton',sans-serif;
+  font-size:26px;
+  color:var(--lime);
+  display:block;
+  margin-bottom:4px;
+}
+.stat-card .small{font-size:12.5px;color:var(--muted);font-weight:600}
+
+/* ---------- PANEL ---------- */
+.panel{
+  background:var(--panel);
+  border-radius:22px;
+  padding:24px;
+  margin-top:20px;
+  border:1px solid rgba(255,255,255,.06);
+}
+.panel.accent{border-left:4px solid var(--lime)}
+
+/* ---------- RULES ACCORDION ---------- */
+.rules-list{margin-top:22px}
+.rules-list details{
+  background:var(--panel);
+  border-radius:16px;
+  margin-bottom:10px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.06);
+}
+.rules-list summary{
+  cursor:pointer;
+  list-style:none;
+  padding:16px 18px;
+  font-weight:700;
+  font-size:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:var(--cream);
+  gap:12px;
+}
+.rules-list summary::-webkit-details-marker{display:none}
+.rules-list summary .icon{
+  font-size:20px;
+  color:var(--lime);
+  transition:transform .25s ease;
+  flex-shrink:0;
+  line-height:1;
+}
+.rules-list details[open] summary .icon{transform:rotate(45deg)}
+.rules-list details[open] summary{
+  color:var(--lime);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.rules-list .rule-body{
+  padding:4px 18px 18px;
+  color:#c7cbd1;
+  font-size:14px;
+  line-height:1.65;
+}
+
+/* ---------- TABS ---------- */
+.tab-nav{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+.tab-btn{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--muted);
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:13.5px;
+  padding:11px 18px;
+  border-radius:30px;
+  cursor:pointer;
+}
+.tab-btn.active{
+  background:var(--lime);
+  color:var(--ink);
+  border-color:var(--lime);
+}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.lineup-panel{margin-top:20px}
+.lineup-panel img{
+  width:100%;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+  margin-top:16px;
+  display:block;
+}
+
+/* ---------- FORM ---------- */
+.form-panel{
+  background:var(--panel-2);
+  border-radius:24px;
+  padding:26px 24px;
+  margin-top:20px;
+  border:1px solid rgba(255,255,255,.07);
+}
+.field{margin-top:16px}
+.field label{
+  display:block;font-weight:600;font-size:14px;margin-bottom:7px;color:var(--lime);
+}
+.field input[type=text]{
+  width:100%;
+  min-height:50px;
+  padding:13px 15px;
+  border-radius:11px;
+  border:1px solid rgba(255,255,255,.12);
+  background:var(--bg);
+  color:var(--cream);
+  font-size:16px;
+  outline:none;
+}
+.field input:focus{box-shadow:0 0 0 3px rgba(200,255,61,.28)}
+.radio-group{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.radio-group{grid-template-columns:1fr}}
+.radio-option{
+  background:var(--bg);
+  border:2px solid rgba(255,255,255,.1);
+  border-radius:11px;
+  padding:13px;
+  font-size:14px;
+  display:flex;align-items:center;gap:9px;
+  cursor:pointer;
+}
+.radio-option input{accent-color:var(--lime)}
+.radio-option:has(input:checked){border-color:var(--lime);background:rgba(200,255,61,.07)}
+.submit-btn{
+  margin-top:22px;
+  width:100%;
+  background:var(--lime);
+  color:var(--ink);
+  border:none;
+  padding:15px;
+  border-radius:12px;
+  font-family:'Anton',sans-serif;
+  font-size:18px;letter-spacing:1px;
+  cursor:pointer;text-transform:uppercase;
+}
+.submit-btn:hover{background:#b6ec2c}
+.status-msg{margin-top:10px;font-size:13.5px;font-weight:600;min-height:1.2em}
+.status-msg.ok{color:var(--lime)}
+.status-msg.err{color:var(--orange)}
+.note-line{text-align:center;font-size:13px;margin-top:14px;color:var(--muted)}
+
+/* ---------- REGISTERED LIST ---------- */
+.registered-list{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.registrant{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  background:var(--panel-2);
+  border-radius:12px;
+  padding:12px 14px;
+  flex-wrap:wrap;
+}
+.registrant-info{display:flex;flex-direction:column;gap:3px}
+.registrant .name{font-weight:700;font-size:14.5px;color:var(--cream)}
+.registrant .program{
+  font-size:11px;font-weight:700;
+  color:var(--ink);
+  background:var(--lime);
+  padding:3px 9px;border-radius:20px;
+  width:fit-content;
+}
+.registrant .program.looking{background:var(--purple);color:#fff}
+.registrant-actions{display:flex;gap:8px}
+.mini-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+  color:var(--cream);
+  font-size:12.5px;font-weight:600;
+  padding:7px 12px;border-radius:8px;cursor:pointer;
+}
+.mini-btn:hover{border-color:var(--lime);color:var(--lime)}
+.mini-btn.danger:hover{border-color:var(--orange);color:var(--orange)}
+.mini-btn.ghost{opacity:.7}
+.edit-row{display:flex;flex-direction:column;gap:10px;width:100%}
+.edit-name{
+  width:100%;min-height:44px;padding:10px 12px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.15);background:var(--bg);color:var(--cream);font-size:16px;
+}
+.edit-radio-group{display:flex;flex-direction:column;gap:6px}
+.mini-radio{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--cream);cursor:pointer}
+.mini-radio input{accent-color:var(--lime)}
+.empty-note{font-size:14px;color:var(--muted)}
+
+/* ---------- FOOTER ---------- */
+footer{
+  background:var(--panel);
+  color:var(--cream);
+  text-align:center;
+  padding:30px 18px 36px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+footer .brand{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;color:var(--lime)}
+footer .tags{margin-top:9px;font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+  .wrap{padding-left:18px;padding-right:18px}
+  section{padding:36px 0}
+  .panel,.form-panel{padding:22px 20px}
+}
+@media(max-width:600px){
+  body{font-size:15px}
+  .wrap{padding-left:14px;padding-right:14px}
+  .hero{padding:32px 14px 40px}
+  .hero .sub{font-size:15px}
+  h2.title{font-size:28px}
+  .lede{font-size:14.5px}
+  .rules-list summary{font-size:14px;padding:14px 15px}
+  .rule-body{font-size:13.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="club-line">CALAPAN CITY PICKLEBALL CLUB <span class="dot"></span> PRESENTS</div>
+  <h1 class="display">2ND TEAM<br>TOURNAMENT</h1>
+  <p class="sub">at inulit pa ngani. hehe</p>
+  <div class="chips">
+    <div class="chip">📅 October 24, 2026 · Saturday</div>
+    <div class="chip">⏰ 7:00 AM Start</div>
+    <div class="chip">📍 PKL Box Calapan</div>
+    <div class="chip">📍 Entry Fee: 1000 per team</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROGRAM -->
+  <section>
+    <span class="kicker">The Program</span>
+    <h2 class="title">Team Tournament, Season 2</h2>
+    <p class="lede">Same rules, same fun, different team? Round two is here, and yes, we are doing this again.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <span class="big">2 + 2</span>
+        <span class="small">2 women, 2 men per team</span>
+      </div>
+      <div class="stat-card">
+        <span class="big">4 to 16</span>
+        <span class="small">games per match, played to 16 points</span>
+      </div>
+      <div class="stat-card">
+        <span class="big">Groups → Bracket</span>
+        <span class="small">round robin, then single elimination</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM BASICS -->
+  <section>
+    <span class="kicker purple">Before Anything Else</span>
+    <h2 class="title">Players, Team Name, and Uniforms</h2>
+    <div class="panel accent">
+      <p class="lede" style="margin:0">Each team is 4 players: 2 women and 2 men. Come up with a team name people will remember, and yes, that matters more than it should. Matching colors or uniforms are strongly encouraged. It is basically half the fun, and everyone will notice if you skip it.</p>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section id="rules">
+    <span class="kicker orange">Read This Before Match Day</span>
+    <h2 class="title">Tournament Rules</h2>
+    <p class="lede">Tap each section to expand. Nobody reads a wall of text, so here it is in pieces.</p>
+
+    <div class="tab-nav">
+      <button type="button" class="tab-btn active" onclick="showTab('rules-tab', this)">Tournament Rules</button>
+      <button type="button" class="tab-btn" onclick="showTab('lineup-tab', this)">Line Up Sheet</button>
+    </div>
+
+    <div id="rules-tab" class="tab-panel active">
+    <div class="rules-list">
+
+      <details>
+        <summary>How the Tournament Works <span class="icon">+</span></summary>
+        <div class="rule-body">Teams are grouped and play round robin within their group, so everyone gets guaranteed matches. The top team from each group then moves on to a single elimination bracket playoff. There is no match for 3rd place. Teamwork counts as much as skill here, so pick your squad wisely.</div>
+      </details>
+
+      <details>
+        <summary>The Match Format <span class="icon">+</span></summary>
+        <div class="rule-body">Each match is 4 games played to 16 points: a women's doubles, a men's doubles, and two mixed doubles games. If the match is tied 2 to 2 after those 4 games, a 5th tiebreaker doubles game decides the winner, with all four players rotating in.</div>
+      </details>
+
+      <details>
+        <summary>Round Robin Seeding and Bracket Advancement <span class="icon">+</span></summary>
+        <div class="rule-body">Only the top team from each group advances to the bracket. If seeding is needed: first, matches won. Second, head to head result, only if exactly two teams are tied and they already played each other. Third, point differential (points scored minus points scored against, calculated match to match as a percentage). The number 1 seed plays the number 4 seed, and number 2 plays number 3. Winners move on. No 3rd place match is held.</div>
+      </details>
+
+      <details>
+        <summary>Scoring: Rally Scoring <span class="icon">+</span></summary>
+        <div class="rule-body">Every rally earns a point, whether the serving or receiving team wins it. But a team can only win the game while serving, and must win by two. This creates a freeze at 15 points if the non serving team gets what would be the winning point, since they still need to serve to close it out. Trailing teams never freeze and just keep scoring normally.</div>
+      </details>
+
+      <details>
+        <summary>Coin Toss and Lineups <span class="icon">+</span></summary>
+        <div class="rule-body">Before each match, team captains meet for a coin toss. The winner picks one of two options: Home (reacts to the visiting team's mixed doubles lineup) or Away (sets their mixed doubles lineup first, and also chooses to serve or receive, plus which side of the court to start on). Whoever loses the toss gets the option the winner did not pick. Away reveals their two mixed doubles lineups first, then Home responds immediately after.</div>
+      </details>
+
+      <details>
+        <summary>Switching Ends and Sides <span class="icon">+</span></summary>
+        <div class="rule-body">Teams switch ends once either side reaches 8 points in a game, and stay on that side to start the next game (no switching ends between games). If you chose to serve at the coin toss, your team starts every game serving. Player A starts on the right and serves on even scores, Player B serves on odd scores from the left, and both receive serve from their same side. Teams can swap which player is on which side during an end change or during a timeout, as long as they announce it first.</div>
+      </details>
+
+      <details>
+        <summary>Timeouts <span class="icon">+</span></summary>
+        <div class="rule-body">Each team gets 1 timeout per game, up to 1 minute. This is separate from the 1 minute timeout that happens automatically when the first team hits 8 points in a game.</div>
+      </details>
+
+      <details>
+        <summary>Schedule and Between Game Rules <span class="icon">+</span></summary>
+        <div class="rule-body">Once both teams are on the court, you get 5 minutes total to warm up, sort out home and away, and start the first game. After that, there is only 2 minutes between games, no extra warm ups. Be in position and ready to play by the 2 minute mark, or your team forfeits its timeout for that game.</div>
+      </details>
+
+      <details>
+        <summary>5th Game Doubles Tiebreaker <span class="icon">+</span></summary>
+        <div class="rule-body">If the match is tied 2 to 2, a 5th doubles game decides it. Right after the second mixed doubles game ends, Home has 1 minute to set their tiebreaker lineup (gendered or mixed pairing), then Away has 1 minute to respond with theirs. Pairs rotate every 4 rallies, teams switch sides once a team reaches 8 points, and each team gets 1 timeout for this game.</div>
+      </details>
+
+      <details>
+        <summary>Team Captains <span class="icon">+</span></summary>
+        <div class="rule-body">Every team needs a captain. They handle the coin toss, lineup calls, communication with the CCPC Programs and Events Committee, and any referee concerns. If a captain cannot make it for a match, the team names a substitute captain.</div>
+      </details>
+
+      <details>
+        <summary>Substitutes, Injuries, and Forfeits <span class="icon">+</span></summary>
+        <div class="rule-body">You can substitute a player after registration, as long as the sub has a DUPR rating and it does not push your team's aggregate rating above 12.000. An injury substitute must stay in for the rest of the event and cannot be swapped back out later. If a team cannot field the required players, that game is forfeited 16 to 0. If a player gets hurt mid game and cannot continue, the team retires from that game, keeps its current score, and the other team is awarded a winning score of 16 or more to keep the two point win margin. Forfeits, withdrawals, and retirements still count toward wins and point percentage, but games where both teams scored fewer than 8 points will not be submitted to DUPR.</div>
+      </details>
+
+      <details>
+        <summary>DUPR Team Rating and NR Players <span class="icon">+</span></summary>
+        <div class="rule-body">Every team's combined DUPR rating must not go over 12.000, and it gets locked in once you register, so ratings changing afterward will not affect your division. A DUPR account is required at the time of registration. If a player is not yet rated (NR), they are counted as 3.000, and the other three players on that team must add up to 9.000 or less.</div>
+      </details>
+
+      <details>
+        <summary>Single Registrations <span class="icon">+</span></summary>
+        <div class="rule-body">No team yet? You can still register solo and the CCPC Programs and Events Committee will try to place you on a team, though placement is not guaranteed. If you cannot be placed, your registration fee will be refunded.</div>
+      </details>
+
+      <details>
+        <summary>Paddles, Coaching, and Officiating <span class="icon">+</span></summary>
+        <div class="rule-body">Paddles must be on the official USA Pickleball or UPA-A approved paddle list, and players are expected to be honest about a delaminated paddle rather than sneak it into play. Coaching from non playing teammates is allowed anytime the ball is not in play, as long as it does not disrupt the game. During round robin, the non playing team assigned to each court handles refereeing, scorekeeping, and line calls. Unresolved disputes go to a CCPC committee member who is not involved in that match.</div>
+      </details>
+
+      <details>
+        <summary>Player Conduct and Final Say <span class="icon">+</span></summary>
+        <div class="rule-body">Mistreating another player gets you one official verbal warning. After that, a player is subject to ejection from the tournament. For anything not covered here, the CCPC Programs and Events Committee has final authority, and they may revise these rules at any time.</div>
+      </details>
+
+    </div>
+    </div>
+
+    <div id="lineup-tab" class="tab-panel">
+      <div class="panel accent lineup-panel">
+        <p class="lede" style="margin:0">For better implementation this season, we are bringing back the CCPC Team Tournament Line Up Sheet from Season 1. Team captains use this at the start of every match, it covers the coin toss, team role selection, serve and side choice, the regular lineup submission, and the tiebreaker lineup if the match reaches 2 to 2. Have it ready before you step on court, it saves everyone time.</p>
+        <img src="lineup-sheet-season1.png" alt="CCPC Team Tournament Line Up Sheet from Season 1, showing the coin toss, lineup submission, and tiebreaker lineup sections">
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="register">
+    <span class="kicker">Registration</span>
+    <h2 class="title">Interest Check</h2>
+    <p class="lede">This is just an interest check to see who is in. No commitment yet, just vibes. Real registration details follow soon.</p>
+
+    <form class="form-panel" id="regForm">
+      <div class="field">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Juan Dela Cruz" required>
+      </div>
+      <div class="field">
+        <label>Do you have your own team?</label>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="teamstatus" value="yes" required> Yes.</label>
+          <label class="radio-option"><input type="radio" name="teamstatus" value="none"> None yet, looking for team mates.</label>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Count Me In</button>
+      <div id="regStatus" class="status-msg"></div>
+      <div class="note-line">Questions? Reach out to any CCPC officer.</div>
+    </form>
+
+    <div class="panel">
+      <h3 style="margin-top:0;font-size:18px;color:#fff">Who's In So Far</h3>
+      <div id="registeredList" class="registered-list">
+        <p class="empty-note">Loading…</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="brand">CCPC · CALAPAN CITY PICKLEBALL CLUB</div>
+  <div class="tags">SPORT &nbsp;|&nbsp; FRIENDSHIP &nbsp;|&nbsp; WELLNESS &nbsp;|&nbsp; COMMUNITY</div>
+</footer>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>
+
+var firebaseConfig = {
+  apiKey: "AIzaSyB4IiCCQHtGeIT44n71oGlKk7PIOSWxfg8",
+  authDomain: "ccpc-1943f.firebaseapp.com",
+  databaseURL: "https://ccpc-1943f-default-rtdb.firebaseio.com",
+  projectId: "ccpc-1943f",
+  storageBucket: "ccpc-1943f.firebasestorage.app",
+  messagingSenderId: "904942754236",
+  appId: "1:904942754236:web:aecbec51d5cd0b745b33b9"
+};
+
+var TT_PATH = 'teamTournament2Interest';
+var firebaseReady = false;
+var db = null;
+var currentList = [];
+
+function escapeHtml(str){
+  var d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+
+function showTab(tabId, btn){
+  var panels = document.querySelectorAll('.tab-panel');
+  var buttons = document.querySelectorAll('.tab-btn');
+  for(var i = 0; i < panels.length; i++){
+    panels[i].classList.remove('active');
+  }
+  for(var j = 0; j < buttons.length; j++){
+    buttons[j].classList.remove('active');
+  }
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+function setStatus(id, msg, cls){
+  var e = document.getElementById(id);
+  if(e){
+    e.textContent = msg;
+    e.className = 'status-msg ' + (cls || '');
+  }
+}
+
+function initFirebase(){
+  try{
+    if(!firebase.apps.length){
+      firebase.initializeApp(firebaseConfig);
+    }
+    db = firebase.database();
+    firebaseReady = true;
+    return true;
+  }catch(e){
+    console.error(e);
+    setStatus('regStatus', 'Could not connect to the database. Please try again later.', 'err');
+    return false;
+  }
+}
+
+function renderList(list){
+  var c = document.getElementById('registeredList');
+
+  if(!list.length){
+    c.innerHTML = '<p class="empty-note">No one has signed up yet. Be the first.</p>';
+    return;
+  }
+
+  c.innerHTML = list.map(function(r){
+    var looking = r.teamStatus !== 'yes';
+    var label = looking ? 'Looking for team mates' : 'Has a team';
+    var badgeClass = looking ? 'program looking' : 'program';
+
+    var controls =
+      '<div class="registrant-actions">' +
+        '<button type="button" class="mini-btn" onclick="startEdit(\'' + r.id + '\')">Edit</button>' +
+        '<button type="button" class="mini-btn danger" onclick="deleteEntry(\'' + r.id + '\')">Delete</button>' +
+      '</div>';
+
+    return (
+      '<div class="registrant" id="row-' + r.id + '">' +
+        '<div class="registrant-info">' +
+          '<span class="name">' + escapeHtml(r.name) + '</span>' +
+          '<span class="' + badgeClass + '">' + label + '</span>' +
+        '</div>' +
+        controls +
+      '</div>'
+    );
+  }).join('');
+}
+
+function startEdit(id){
+  var entry = currentList.find(function(r){ return r.id === id; });
+  if(!entry) return;
+
+  var row = document.getElementById('row-' + id);
+  if(!row) return;
+
+  var yesChecked = entry.teamStatus === 'yes' ? 'checked' : '';
+  var noChecked = entry.teamStatus !== 'yes' ? 'checked' : '';
+
+  row.innerHTML =
+    '<div class="edit-row">' +
+      '<input type="text" class="edit-name" id="editname-' + id + '" value="' + escapeHtml(entry.name) + '">' +
+      '<div class="edit-radio-group">' +
+        '<label class="mini-radio"><input type="radio" name="editstatus-' + id + '" value="yes" ' + yesChecked + '> Yes.</label>' +
+        '<label class="mini-radio"><input type="radio" name="editstatus-' + id + '" value="none" ' + noChecked + '> None yet, looking for team mates.</label>' +
+      '</div>' +
+      '<div class="registrant-actions">' +
+        '<button type="button" class="mini-btn" onclick="saveEdit(\'' + id + '\')">Save</button>' +
+        '<button type="button" class="mini-btn ghost" onclick="renderList(currentList)">Cancel</button>' +
+      '</div>' +
+    '</div>';
+}
+
+function saveEdit(id){
+  var nameInput = document.getElementById('editname-' + id);
+  var name = nameInput ? nameInput.value.trim() : '';
+  var statusEl = document.querySelector('input[name="editstatus-' + id + '"]:checked');
+  var teamStatus = statusEl ? statusEl.value : 'none';
+
+  if(!name){
+    alert('Name cannot be empty.');
+    return;
+  }
+
+  db.ref(TT_PATH + '/' + id).update({
+    name: name,
+    teamStatus: teamStatus
+  }).catch(function(err){
+    console.error(err);
+    alert('Could not save changes. Please try again.');
+  });
+}
+
+function deleteEntry(id){
+  if(!window.confirm('Remove this entry from the list?')) return;
+
+  db.ref(TT_PATH + '/' + id).remove()
+    .catch(function(err){
+      console.error(err);
+      alert('Could not delete. Please try again.');
+    });
+}
+
+function startLiveList(){
+  if(!firebaseReady) return;
+
+  db.ref(TT_PATH).on('value', function(snap){
+    var d = snap.val() || {};
+    var arr = Object.keys(d).map(function(k){
+      return Object.assign({ id: k }, d[k]);
+    });
+    arr.sort(function(a, b){ return (a.createdAt || 0) - (b.createdAt || 0); });
+    currentList = arr;
+    renderList(arr);
+  }, function(err){
+    console.error(err);
+    document.getElementById('registeredList').innerHTML =
+      '<p class="empty-note">Could not load the list. Check back later.</p>';
+  });
+}
+
+document.getElementById('regForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  var name = document.getElementById('fullname').value.trim();
+  var statusEl = document.querySelector('input[name="teamstatus"]:checked');
+  var teamStatus = statusEl ? statusEl.value : '';
+
+  if(!name || !teamStatus){
+    setStatus('regStatus', 'Please fill in your name and team status.', 'err');
+    return;
+  }
+
+  if(!firebaseReady){
+    setStatus('regStatus', 'Database is not connected yet. Please try again.', 'err');
+    return;
+  }
+
+  setStatus('regStatus', 'Saving…', '');
+
+  try{
+    var newRef = db.ref(TT_PATH).push();
+    await newRef.set({
+      name: name,
+      teamStatus: teamStatus,
+      createdAt: firebase.database.ServerValue.TIMESTAMP
+    });
+    setStatus('regStatus', 'You are on the list, ' + name + '. See you on court.', 'ok');
+    this.reset();
+  }catch(err){
+    console.error(err);
+    setStatus('regStatus', 'Could not save. Please check your connection and try again.', 'err');
+  }
+});
+
+initFirebase();
+startLiveList();
+
+</script>
+</body>
+</html>
