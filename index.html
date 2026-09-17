@@ -293,7 +293,28 @@ h2.title{font-size:clamp(27px,5vw,38px);margin:0 0 6px;line-height:1.05;color:#f
 .note-line{text-align:center;font-size:13px;margin-top:14px;color:var(--muted)}
 
 /* ---------- REGISTERED LIST ---------- */
-.registered-list{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.registered-list{margin-top:0;display:flex;flex-direction:column;gap:8px}
+.registered-columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:18px;
+}
+@media(max-width:640px){
+  .registered-columns{grid-template-columns:1fr}
+}
+.reg-column-head{
+  font-family:'Anton',sans-serif;
+  font-size:14px;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  padding:8px 12px;
+  border-radius:10px;
+  margin-bottom:10px;
+  text-align:center;
+}
+.reg-column-head.has-team{background:var(--lime);color:var(--ink)}
+.reg-column-head.looking{background:var(--purple);color:#fff}
 .registrant{
   display:flex;justify-content:space-between;align-items:center;gap:10px;
   background:var(--panel-2);
@@ -369,12 +390,11 @@ footer .tags{margin-top:9px;font-size:12px;letter-spacing:2px;color:var(--muted)
 <div class="hero">
   <div class="club-line">CALAPAN CITY PICKLEBALL CLUB <span class="dot"></span> PRESENTS</div>
   <h1 class="display">2ND TEAM<br>TOURNAMENT</h1>
-  <p class="sub">at inulit pa ngani. hehe</p>
+  <p class="sub">at inulit pa ngani.. hehe</p>
   <div class="chips">
     <div class="chip">📅 October 24, 2026 · Saturday</div>
     <div class="chip">⏰ 7:00 AM Start</div>
     <div class="chip">📍 PKL Box Calapan</div>
-    <div class="chip">📍 Entry Fee: 1000 per team</div>
   </div>
 </div>
 
@@ -537,8 +557,19 @@ footer .tags{margin-top:9px;font-size:12px;letter-spacing:2px;color:var(--muted)
 
     <div class="panel">
       <h3 style="margin-top:0;font-size:18px;color:#fff">Who's In So Far</h3>
-      <div id="registeredList" class="registered-list">
-        <p class="empty-note">Loading…</p>
+      <div class="registered-columns">
+        <div class="reg-column">
+          <div class="reg-column-head has-team">Has a Team</div>
+          <div id="listHasTeam" class="registered-list">
+            <p class="empty-note">Loading…</p>
+          </div>
+        </div>
+        <div class="reg-column">
+          <div class="reg-column-head looking">Looking for Team Mates</div>
+          <div id="listLooking" class="registered-list">
+            <p class="empty-note">Loading…</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -612,35 +643,42 @@ function initFirebase(){
   }
 }
 
+function renderRegistrant(r){
+  var looking = r.teamStatus !== 'yes';
+  var label = looking ? 'Looking for team mates' : 'Has a team';
+  var badgeClass = looking ? 'program looking' : 'program';
+
+  var controls =
+    '<div class="registrant-actions">' +
+      '<button type="button" class="mini-btn" onclick="startEdit(\'' + r.id + '\')">Edit</button>' +
+      '<button type="button" class="mini-btn danger" onclick="deleteEntry(\'' + r.id + '\')">Delete</button>' +
+    '</div>';
+
+  return (
+    '<div class="registrant" id="row-' + r.id + '">' +
+      '<div class="registrant-info">' +
+        '<span class="name">' + escapeHtml(r.name) + '</span>' +
+        '<span class="' + badgeClass + '">' + label + '</span>' +
+      '</div>' +
+      controls +
+    '</div>'
+  );
+}
+
 function renderList(list){
-  var c = document.getElementById('registeredList');
+  var hasTeamEl = document.getElementById('listHasTeam');
+  var lookingEl = document.getElementById('listLooking');
 
-  if(!list.length){
-    c.innerHTML = '<p class="empty-note">No one has signed up yet. Be the first.</p>';
-    return;
-  }
+  var hasTeam = list.filter(function(r){ return r.teamStatus === 'yes'; });
+  var looking = list.filter(function(r){ return r.teamStatus !== 'yes'; });
 
-  c.innerHTML = list.map(function(r){
-    var looking = r.teamStatus !== 'yes';
-    var label = looking ? 'Looking for team mates' : 'Has a team';
-    var badgeClass = looking ? 'program looking' : 'program';
+  hasTeamEl.innerHTML = hasTeam.length
+    ? hasTeam.map(renderRegistrant).join('')
+    : '<p class="empty-note">No one here yet.</p>';
 
-    var controls =
-      '<div class="registrant-actions">' +
-        '<button type="button" class="mini-btn" onclick="startEdit(\'' + r.id + '\')">Edit</button>' +
-        '<button type="button" class="mini-btn danger" onclick="deleteEntry(\'' + r.id + '\')">Delete</button>' +
-      '</div>';
-
-    return (
-      '<div class="registrant" id="row-' + r.id + '">' +
-        '<div class="registrant-info">' +
-          '<span class="name">' + escapeHtml(r.name) + '</span>' +
-          '<span class="' + badgeClass + '">' + label + '</span>' +
-        '</div>' +
-        controls +
-      '</div>'
-    );
-  }).join('');
+  lookingEl.innerHTML = looking.length
+    ? looking.map(renderRegistrant).join('')
+    : '<p class="empty-note">No one here yet.</p>';
 }
 
 function startEdit(id){
@@ -710,8 +748,9 @@ function startLiveList(){
     renderList(arr);
   }, function(err){
     console.error(err);
-    document.getElementById('registeredList').innerHTML =
-      '<p class="empty-note">Could not load the list. Check back later.</p>';
+    var msg = '<p class="empty-note">Could not load the list. Check back later.</p>';
+    document.getElementById('listHasTeam').innerHTML = msg;
+    document.getElementById('listLooking').innerHTML = msg;
   });
 }
 
